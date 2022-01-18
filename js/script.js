@@ -26,11 +26,42 @@ const getRandomNumber = (min,max) => Math.floor(Math.random() * (max - min + 1))
 /* RECUPERO GLI ELEMENTI DAL DOM E CREO LE VARIABILI CHE MI SERVONO */
 const selectElement = document.getElementById('select');
 
-const play = selectedValue =>
+const play = ( selectedValue , gridElement ) =>
 {
+    const createBombs = ( totalCells ) =>
+    {
+        const NUMBER_BOMBS = 16;
+        const bombs = [];
+
+        while(bombs.length < NUMBER_BOMBS)
+        {
+            const rdnNumber = getRandomNumber(1,totalCells);
+
+            if(!bombs.includes(rdnNumber) )
+            {
+                bombs.push(rdnNumber);
+            }
+        }
+
+        return bombs;
+
+    }
+    const createGrid = ( side , gridElement ) =>
+    {
+        const totalCells = side * side;
+        const bombs = createBombs(totalCells);
+        
+        console.log(bombs);
+
+        for(let i = 0;i < totalCells;i++)
+        {
+
+        }
+
+    }
+
     if(selectedValue)
     {
-
         switch(selectedValue)
         {
             case '1':
@@ -46,12 +77,11 @@ const play = selectedValue =>
             break;
         }
     }
-
 }
 
 selectElement.addEventListener('change',(e) => {
 
     const gridElement = document.getElementById('grid');
     gridElement.innerHTML = '';
-    play(e.target.value);
+    play(e.target.value,gridElement);
 });
