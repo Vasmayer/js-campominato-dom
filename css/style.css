@@ -1,0 +1,43 @@
+header
+{
+    height: 80px;
+    background-color: aliceblue;
+    color: darkgray;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.color-green
+{
+    color: lightgreen;
+}
+h1
+{
+    line-height: 80px;
+}
+.grid
+{
+    width: 700px;
+    height: 700px;
+    border: lightgreen solid 5px;
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+.cells
+{
+    border: solid 1px dodgerblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    cursor: pointer;
+
+}
+
+.cells.clicked
+{
+    background-color: aqua;
+}
