@@ -28,6 +28,42 @@ const selectElement = document.getElementById('select');
 
 const play = ( selectedValue , gridElement ) =>
 {
+    let points = 0;
+    
+
+    const showBombs = (bombs,totalCells) =>
+    {
+        const cells = document.querySelectorAll('.cells');
+
+        for(let i = 0;i<totalCells;i++)
+        {
+                const cell = cells[i];
+
+                if(bombs.includes(parseInt(cell.innerText)))
+                {
+                    cell.innerText='';
+                    cell.classList.add('bomb');
+                }     
+                
+               cell.removeEventListener('click',cell.fn,false);
+        }
+   
+    }
+
+    const gameOver = (bombs,totalCells) => 
+    {
+        showBombs(bombs,totalCells);
+        const MAX_POINTS = totalCells - bombs.length;
+        const messageElement = document.getElementById('message');
+        let message = `Mi dispiace hai perso! Punti: ${points}`
+        if(MAX_POINTS === points)
+        {
+            message = "Complimenti hai vinto!";
+        }
+
+        messageElement.innerText = message;
+        
+    }
     const createBombs = ( totalCells ) =>
     {
         const NUMBER_BOMBS = 16;
@@ -50,12 +86,31 @@ const play = ( selectedValue , gridElement ) =>
     {
         const totalCells = side * side;
         const bombs = createBombs(totalCells);
-        
-        console.log(bombs);
 
         for(let i = 0;i < totalCells;i++)
         {
-
+            const cell = document.createElement('div');
+            const dimensions = `calc( 100% / ${side}`
+            cell.style.width = dimensions;
+            cell.style.height = dimensions;
+            cell.className = 'cells';
+            const number  = i + 1
+            cell.innerText = number; 
+            gridElement.appendChild(cell);
+            
+            console.log(number);
+            cell.addEventListener("click", cell.fn=function fn() {
+            if(bombs.includes(number))
+            {
+                //GAME OVER gameOver();
+                gameOver(bombs,side * side,points);
+            }
+            else
+            {
+                cell.classList.add('clicked');
+                points++;
+            } 
+            }, false);
         }
 
     }
